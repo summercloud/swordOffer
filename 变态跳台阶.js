@@ -18,3 +18,16 @@ function jumpFloorII(number)
     }
     return dp[number];
 }
+/* 使用reduce函数 */
+getSum = (total, num) => total+num;
+function jumpFloorII(number)
+{
+    let dp = [0, 1, 2];
+    var i = 3;
+    while(i<=number){
+        let temp = 0;
+        dp[i] = dp.reduce(getSum) + 1;
+        i++;
+    }
+    return dp[number];
+}

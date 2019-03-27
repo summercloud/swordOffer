@@ -3,20 +3,33 @@
         <title> 测试 </title>
     </head>
     <script>
-function jumpFloorII(number)
-{
-    let dp = [0, 1, 2];
-    var i = 3;
-    while(i<=number){
-        let temp = 0;
-        for(let n=1; n<i; n++){
-            temp = temp + dp[n];
+    function FindKthToTail(head, k)
+    {
+        let nodeList = [];
+        while(head){
+            let temp = head;
+            nodeList.push(temp);
+            head = head.next;
         }
-        dp[i] = temp+1;
-        i++;
+        const length = nodeList.length;
+        return nodeList[length-k];
     }
-    return dp[number];
-}
-    console.log(jumpFloorII(3));
+    const test = {
+        value: 1,
+        next: {
+            value: 2,
+            next: {
+                value: 3,
+                next: {
+                    value: 4,
+                    next: {
+                        value: 5,
+                        next: null
+                    }
+                }
+            }
+        }
+    }
+    console.log(FindKthToTail(test, 2));
     </script>
 </html>
