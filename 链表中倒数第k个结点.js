@@ -6,7 +6,8 @@
     this.val = x;
     this.next = null;
 }*/
-function FindKthToTail(head, k)
+/* 方法一 */
+/* function FindKthToTail(head, k)
 {
     let nodeList = [];
     while(head){
@@ -16,4 +17,22 @@ function FindKthToTail(head, k)
     }
     const length = nodeList.length;
     return nodeList[length-k];
+} */
+/* 方法二 */
+function FindKthToTail(head, k)
+{
+    let p1 = head;
+    let p2;
+    let temp = 1;
+    while(p1.next){
+        temp++;
+        if(temp == k) {
+            p2=head;
+        }
+        if(temp > k) {
+            p2 = p2.next
+        }
+        p1 = p1.next;
+    }
+    return p2;
 }
