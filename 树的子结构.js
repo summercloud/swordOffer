@@ -7,7 +7,31 @@
     this.left = null;
     this.right = null;
 } */
+function isSub(root, sub){
+    if( root.val != sub.val ){
+        return false;
+    }
+    let left = false;
+    if(root.left && sub.left) {
+        left = isSub(root.left, sub.left);
+    } else if (!sub.left){
+        left = true;
+    }
+    let right = false;
+    if(root.right && sub.right) {
+        right = isSub(root.right, sub.right);
+    } else if (!sub.right){
+        right = true;
+    }
+    return left && right; 
+}
 function HasSubtree(pRoot1, pRoot2)
 {
-    // write code here
+    if(!pRoot1 || !pRoot2){
+        return false;
+    } 
+    if(isSub(pRoot1,pRoot2)){
+        return true;
+    }
+    return HasSubtree(pRoot1.left, pRoot2) || HasSubtree(pRoot1.right, pRoot2);
 }

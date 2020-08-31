@@ -11,7 +11,8 @@ function NumberOf1(n)
         if(n & 1 == 1){
             count++;
         }
-        n>>>=1;
+        // >>>位操作符，右移1位，被丢弃的位使用0填充
+        n = n>>>1;
     }
     return count;
 }
