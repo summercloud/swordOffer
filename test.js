@@ -5,40 +5,23 @@ function TreeNode(x) {
     this.left = null;
     this.right = null;
 } */
-function quickSort(input, begin, end, k){
-    if(begin >= end) return;
-    let i = begin+1,j = end;
-    while (true){
-        while (input[i] < input[begin]) { i++ }
-        while (input[j] > input[begin]) { j-- }
-        if (i < j) {
-            let tem1 = input[i]
-            input[i] = input[j]
-            input[j] = tem1
-        } else {
-            break
-        }
-    }
-    let tem = input[j]
-    input[j] = input[begin]
-    input[begin] = tem
-
-    quickSort(input, begin, j-1, k);
-    quickSort(input, j+1, end, k);
+function isLarge(n, m){
+    return (n+''+m) > (m+''+n);
 }
-function GetLeastNumbers_Solution(input, k){
-    quickSort(input, 0, input.length - 1, k);
-    let res = [];
-    for(let i in input){
-        if(i<k){
-            res.push(input[i])
+function PrintMinNumber(numbers)
+{
+    let res = '';
+    for(let i=0; i<numbers.length; i++){
+        for(let j=i+1; j<numbers.length; j++){
+            if(isLarge(numbers[i], numbers[j])){
+                let temp = numbers[i];
+                numbers[i] = numbers[j];
+                numbers[j] = temp;
+            }
         }
+        res = res + numbers[i];
     }
-    if(input.length<k){
-        return []
-    }else{
-        return res
-    }
+    return res
 }
 const root = {
     val: 10,
@@ -55,5 +38,5 @@ const root = {
         val: 12
     }
 };
-const array = [8,5,7,9,10,2,4];
-console.log(GetLeastNumbers_Solution(array, 4));
+const array = [3,321,3214,3211,2];
+console.log(PrintMinNumber(array));
