@@ -8,7 +8,24 @@ ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任�
 当 cur = 1时 次数 = high*digit + low + 1
 当 cur > 1时 次数 = (high+1) * digit
 */
-function PrintMinNumber(numbers)
+function NumberOf1Between1AndN_Solution(n)
 {
-    // write code here
+    let digit = 1, cur = n%10;
+    let high = parseInt(n/10);
+    let low = 0;
+    let count = 0;
+    while(high!=0 || cur!=0){
+        if(cur < 1){
+            count = count + (high * digit);
+        } else if (cur == 1){
+            count = count + (high*digit + low + 1)
+        } else {
+            count = count + (high+1)*digit
+        }
+        digit = digit * 10;
+        cur = parseInt((n%(digit*10))/(digit));
+        high = parseInt(n/(digit*10));
+        low = parseInt(n%digit);
+    }
+    return count;
 }
