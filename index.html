@@ -43,32 +43,43 @@
 </html>
 
 <script>
-function isNumeric(s)
+function EntryNodeOfLoop(pHead)
 {
-    function isInt(str){
-        if(!str) return true;
-        let reg = /[0-9]+/;
-        let match = str.match(reg);
-        return str == match[0];
+    let p1 = pHead, p2 = pHead;
+    let count = 0;
+    let loopCount = 0;
+
+    p1.visit = true;
+    p1 = p1.next;
+    p2 = p2.next ? p2.next.next : undefined;
+    count++;
+
+    while(p1 && p2 && p1 != p2){
+        p1.visit = true;
+        p1 = p1.next;
+        p2 = p2.next ? p2.next.next : undefined;
+        count++;
     }
-    function isNumber(str){
-        let a = str.split('.');
-        if(a.length > 2) return false;
-        if(a.length == 1) return isInt(a[0]);
-        return (isInt(a[0]) && isInt(a[1]));
+    if(!p1 || !p2){
+        return null;
     }
-    if(['-', '+'].indexOf(s[0]) != -1){
-        s = s.substring(1);
+    loopCount = count;
+    while(p1 && !p1.visit){
+        p1.visit = true;
+        p1 = p1.next;
+        count++
     }
-    let arr = s.split(/[eE]/);
-    if(arr.length == 1) return isNumber(arr[0]);
-    if(arr.length == 2) {
-        if(['-', '+'].indexOf(arr[1][0]) != -1){
-            arr[1] = arr[1].substring(1);
-        }
-        return (arr[1] && isNumber(arr[0]) && isInt(arr[1]));
+    let entranceCount = count - loopCount;
+    let p = pHead;
+    while(entranceCount){
+        p = p.next;
+        entranceCount --;
     }
-    return false;
+    return p;
 }
-console.log(isNumeric('-.123'));
+let h = {
+    value: 1,
+    next: {}
+}
+console.log(EntryNodeOfLoop(h));
 </script>
