@@ -43,43 +43,48 @@
 </html>
 
 <script>
-function EntryNodeOfLoop(pHead)
+function isSymmetrical(pRoot)
 {
-    let p1 = pHead, p2 = pHead;
-    let count = 0;
-    let loopCount = 0;
+    let same = true;
+    function isSame(left, right)
+    {
+        if((!left && right ) || (left && !right)) {
+            same=false;
+            return;
+        }
+        if(!left && !right) return;
+        if(left.val != right.val) {
+            same=false;
+            return;
+        }
+        isSame(left.left, right.right)
+        isSame(left.right, right.left);
 
-    p1.visit = true;
-    p1 = p1.next;
-    p2 = p2.next ? p2.next.next : undefined;
-    count++;
-
-    while(p1 && p2 && p1 != p2){
-        p1.visit = true;
-        p1 = p1.next;
-        p2 = p2.next ? p2.next.next : undefined;
-        count++;
     }
-    if(!p1 || !p2){
-        return null;
-    }
-    loopCount = count;
-    while(p1 && !p1.visit){
-        p1.visit = true;
-        p1 = p1.next;
-        count++
-    }
-    let entranceCount = count - loopCount;
-    let p = pHead;
-    while(entranceCount){
-        p = p.next;
-        entranceCount --;
-    }
-    return p;
+    if(!pRoot) return true;
+    isSame(pRoot.left, pRoot.right);
+    return same;
 }
 let h = {
-    value: 1,
-    next: {}
+    val: 5,
+    left: {
+        val: 5,
+        left: {
+            val: 5,
+            left: null,
+            right: {
+                val: 5
+            }
+        },
+        right: null
+    },
+    right: {
+        val: 5,
+        left: null,
+        right: {
+            val: 5
+        }
+    },
 }
-console.log(EntryNodeOfLoop(h));
+console.log(isSymmetrical(h));
 </script>
